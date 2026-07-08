@@ -1,3 +1,9 @@
+export interface PhotoSection {
+  title: string
+  caption?: string
+  image?: string
+}
+
 export interface VideoSection {
   number: number
   title: string
@@ -25,7 +31,10 @@ export interface Project {
   githubUrl: string
   overview: string[]
   techStack: string[]
-  videoSections: VideoSection[]
-  bonusVideo: BonusVideo
+  photoWalkthroughIntro?: string
+  photoSections?: PhotoSection[]
+  videoWalkthroughIntro?: string
+  videoSections?: VideoSection[]
+  bonusVideo?: BonusVideo
   links: ProjectLink[]
 }

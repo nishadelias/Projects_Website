@@ -7,7 +7,7 @@ export default function Home() {
       <section className="page-header">
         <h1>Projects I&apos;ve Built</h1>
         <p className="page-header__subtitle">
-          A collection of software projects I&apos;ve worked on, with detailed walkthroughs and demos.
+          A collection of projects I&apos;ve worked on, with detailed walkthroughs and demos.
         </p>
       </section>
       <section className="project-grid" aria-label="Project list">

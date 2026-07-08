@@ -20,6 +20,8 @@ export const projects: Project[] = [
       'RV32IMCF',
       'GitHub Actions CI',
     ],
+    videoWalkthroughIntro:
+      'A four-part demo series covering the simulator from overview to hands-on labs. Videos will be added here as they are published.',
     videoSections: [
       {
         number: 1,
@@ -75,6 +77,119 @@ export const projects: Project[] = [
       {
         label: 'Branch Predictors Lab Guide',
         url: 'https://github.com/nishadelias/CPU_SIM/blob/main/BRANCH_PREDICTORS.md',
+      },
+    ],
+  },
+  {
+    slug: 'pipelined-adder-ltspice',
+    name: '2-Stage Pipelined CMOS Adder',
+    shortDescription:
+      'A transistor-level 2-bit ripple-carry adder with two pipeline stages, designed and simulated in LTspice using TSMC 0.18 µm CMOS. Characterized to ~1.67 GHz through pipelining and device sizing.',
+    image: 'images/pipelined-adder-ltspice/thumbnail.svg',
+    githubUrl: 'https://github.com/nishadelias/2-stage-pipelined-adder-ltspice',
+    overview: [
+      'This project is a transistor-level design and simulation of a 2-bit ripple-carry adder with two pipeline stages, built in LTspice using a TSMC 0.18 µm CMOS process. The goal was to improve clock frequency by cutting combinational depth per cycle through register boundaries and device sizing, rather than only optimizing a flat combinational path.',
+      'The datapath uses custom sum and carry logic (SUM_custom and AOI-based carry), inverters, and custom D flip-flops (ff_custom) to form pipeline registers between stages. Hierarchical schematics keep the top-level adder readable and testable, with a single-stage baseline included for direct comparison.',
+      'Simulations cover transient timing, frequency sweeps, and flip-flop setup, hold, and clock-to-Q characterization — the full loop from schematic hierarchy through process-aware SPICE to an operating point at roughly 1.67 GHz.',
+    ],
+    techStack: [
+      'LTspice',
+      'TSMC 0.18 µm CMOS',
+      'Custom CMOS Logic',
+      'D Flip-Flops',
+      'Transient Simulation',
+      'Setup/Hold Characterization',
+    ],
+    photoWalkthroughIntro:
+      'Schematic captures and simulation results from the LTspice design.',
+    photoSections: [
+      {
+        title: 'Top-Level Pipelined Adder Schematic',
+        caption: 'Hierarchical 2-stage pipelined adder with custom sum, carry, and flip-flop blocks.',
+        image: 'images/pipelined-adder-ltspice/pipelined-adder-schematic.png',
+      },
+      {
+        title: 'Custom D Flip-Flop (ff_custom)',
+        caption: 'Pipeline register cell used between combinational stages.',
+        image: 'images/pipelined-adder-ltspice/ff-custom-schematic.png',
+      },
+      {
+        title: 'Transient Timing Simulation',
+        caption: 'Waveforms from pipelined_adder_timing.asc verifying pipeline behavior.',
+        image: 'images/pipelined-adder-ltspice/timing-simulation.png',
+      },
+      {
+        title: 'Frequency Sweep Results',
+        caption: 'Operating-point exploration from pipelined_adder_freq_sweep.asc (~1.67 GHz).',
+        image: 'images/pipelined-adder-ltspice/frequency-sweep.png',
+      },
+    ],
+    links: [
+      {
+        label: 'GitHub Repository',
+        url: 'https://github.com/nishadelias/2-stage-pipelined-adder-ltspice',
+      },
+      {
+        label: 'Design Report (PDF)',
+        url: 'https://github.com/nishadelias/2-stage-pipelined-adder-ltspice/blob/main/report.pdf',
+      },
+      {
+        label: 'Pipelined Adder Schematic',
+        url: 'https://github.com/nishadelias/2-stage-pipelined-adder-ltspice/blob/main/pipelined_adder.asc',
+      },
+      {
+        label: 'Frequency Sweep Testbench',
+        url: 'https://github.com/nishadelias/2-stage-pipelined-adder-ltspice/blob/main/pipelined_adder_freq_sweep.asc',
+      },
+    ],
+  },
+  {
+    slug: 'fpga-flappy-bird',
+    name: 'FPGA Flappy Bird',
+    shortDescription:
+      'A Flappy Bird clone implemented in Verilog on a Basys3 FPGA, with VGA 640×480 graphics, pushbutton controls, and a 7-segment score display.',
+    image: 'images/fpga-flappy-bird/thumbnail.svg',
+    githubUrl: 'https://github.com/nishadelias/FPGA_Flappy_Bird',
+    overview: [
+      'This project is a hardware implementation of Flappy Bird on a Digilent Basys3 FPGA board. The entire game — graphics, physics, collision detection, scoring, and display multiplexing — runs in synthesizable Verilog with no soft-core processor.',
+      'A VGA controller generates 640×480 video at 25 MHz from the board\'s 100 MHz clock, drawing a bird sprite, scrolling pillars with randomized gap positions, and a simple sky background. Pushbuttons handle flap, pause, and reset; the score is shown on the board\'s 7-segment display with multiplexed digit refresh.',
+      'The design is split into modular blocks: a clock divider for pixel and display clocks, a VGA rasterizer with game-state logic, and a 7-segment controller that shows the live score and game-over state. It is an end-to-end digital design project from RTL through Xilinx constraints to a playable demo on real hardware.',
+    ],
+    techStack: [
+      'Verilog',
+      'Xilinx Vivado',
+      'Basys3 FPGA',
+      'VGA 640×480',
+      '7-Segment Display',
+      'Clock Division',
+    ],
+    videoWalkthroughIntro:
+      'A gameplay demo of the finished project running on the Basys3 board with VGA output.',
+    videoSections: [
+      {
+        number: 1,
+        title: 'Gameplay Demo',
+        suggestedTitle: 'FPGA Flappy Bird — Basys3 VGA Gameplay Demo',
+        summary:
+          'A screen recording of the completed game: flap through scrolling pillars, watch the score increment on the 7-segment display, and see game-over reset behavior — all rendered directly from the FPGA with no host PC involved.',
+      },
+    ],
+    links: [
+      {
+        label: 'GitHub Repository',
+        url: 'https://github.com/nishadelias/FPGA_Flappy_Bird',
+      },
+      {
+        label: 'Top-Level Module (top.v)',
+        url: 'https://github.com/nishadelias/FPGA_Flappy_Bird/blob/main/top.v',
+      },
+      {
+        label: 'VGA Controller (vga640x480.v)',
+        url: 'https://github.com/nishadelias/FPGA_Flappy_Bird/blob/main/vga640x480.v',
+      },
+      {
+        label: 'Xilinx Constraints (constraint.xdc)',
+        url: 'https://github.com/nishadelias/FPGA_Flappy_Bird/blob/main/constraint.xdc',
       },
     ],
   },

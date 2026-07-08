@@ -1,4 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
+import PhotoGallery from '../components/PhotoGallery'
 import VideoEmbed from '../components/VideoEmbed'
 import { getProjectBySlug } from '../data/projects'
 
@@ -56,35 +57,49 @@ export default function ProjectDetail() {
         </ul>
       </section>
 
-      <section className="project-section">
-        <h2>Video Walkthrough</h2>
-        <p className="section-intro">
-          A four-part demo series covering the simulator from overview to hands-on labs. Videos will be
-          added here as they are published.
-        </p>
-        <div className="video-sections">
-          {project.videoSections.map((section) => (
-            <div key={section.number} className="video-section">
-              <div className="video-section__header">
-                <span className="video-section__number">Video {section.number}</span>
-                <h3>{section.title}</h3>
-                <p className="video-section__suggested-title">{section.suggestedTitle}</p>
-              </div>
-              <p className="video-section__summary">{section.summary}</p>
-              <VideoEmbed videoUrl={section.videoUrl} title={section.suggestedTitle} />
-            </div>
-          ))}
-        </div>
-      </section>
+      {project.photoSections && project.photoSections.length > 0 && (
+        <section className="project-section">
+          <h2>Photos</h2>
+          {project.photoWalkthroughIntro && (
+            <p className="section-intro">{project.photoWalkthroughIntro}</p>
+          )}
+          <PhotoGallery sections={project.photoSections} />
+        </section>
+      )}
 
-      <section className="project-section project-section--bonus">
-        <h2>Bonus Clip</h2>
-        <div className="video-section">
-          <h3>{project.bonusVideo.title}</h3>
-          <p className="video-section__summary">{project.bonusVideo.summary}</p>
-          <VideoEmbed videoUrl={project.bonusVideo.videoUrl} title={project.bonusVideo.title} />
-        </div>
-      </section>
+      {project.videoSections && project.videoSections.length > 0 && (
+        <section className="project-section">
+          <h2>Video Walkthrough</h2>
+          <p className="section-intro">
+            {project.videoWalkthroughIntro ??
+              'Demo videos will be added here as they are published.'}
+          </p>
+          <div className="video-sections">
+            {project.videoSections.map((section) => (
+              <div key={section.number} className="video-section">
+                <div className="video-section__header">
+                  <span className="video-section__number">Video {section.number}</span>
+                  <h3>{section.title}</h3>
+                  <p className="video-section__suggested-title">{section.suggestedTitle}</p>
+                </div>
+                <p className="video-section__summary">{section.summary}</p>
+                <VideoEmbed videoUrl={section.videoUrl} title={section.suggestedTitle} />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {project.bonusVideo && (
+        <section className="project-section project-section--bonus">
+          <h2>Bonus Clip</h2>
+          <div className="video-section">
+            <h3>{project.bonusVideo.title}</h3>
+            <p className="video-section__summary">{project.bonusVideo.summary}</p>
+            <VideoEmbed videoUrl={project.bonusVideo.videoUrl} title={project.bonusVideo.title} />
+          </div>
+        </section>
+      )}
 
       <section className="project-section">
         <h2>Related Links</h2>
