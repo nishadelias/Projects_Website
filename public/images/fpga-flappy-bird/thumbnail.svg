@@ -11,7 +11,7 @@
   </defs>
   <rect width="640" height="360" fill="url(#bg)"/>
   <text x="320" y="48" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="22" font-weight="600">FPGA Flappy Bird</text>
-  <text x="320" y="72" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">Basys3 · VGA 640×480</text>
+  <text x="320" y="72" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">Basys3 ï¿½ VGA 640ï¿½480</text>
 
   <!-- VGA monitor frame -->
   <rect x="120" y="95" width="400" height="200" rx="8" fill="#1e293b" stroke="#475569" stroke-width="2"/>

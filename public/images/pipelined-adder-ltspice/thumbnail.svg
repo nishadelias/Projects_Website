@@ -15,7 +15,7 @@
   </defs>
   <rect width="640" height="360" fill="url(#bg)"/>
   <text x="320" y="48" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="20" font-weight="600">2-Stage Pipelined CMOS Adder</text>
-  <text x="320" y="72" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">LTspice · TSMC 0.18 µm</text>
+  <text x="320" y="72" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">LTspice ï¿½ TSMC 0.18 ï¿½m</text>
 
   <!-- Inputs -->
   <text x="48" y="158" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">A, B</text>
