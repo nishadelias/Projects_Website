@@ -88,40 +88,62 @@ export const projects: Project[] = [
     image: 'images/pipelined-adder-ltspice/thumbnail.svg',
     githubUrl: 'https://github.com/nishadelias/2-stage-pipelined-adder-ltspice',
     overview: [
-      'This project is a transistor-level design and simulation of a 2-bit ripple-carry adder with two pipeline stages, built in LTspice using a TSMC 0.18 µm CMOS process. The goal was to improve clock frequency by cutting combinational depth per cycle through register boundaries and device sizing, rather than only optimizing a flat combinational path.',
-      'The datapath uses custom sum and carry logic (SUM_custom and AOI-based carry), inverters, and custom D flip-flops (ff_custom) to form pipeline registers between stages. Hierarchical schematics keep the top-level adder readable and testable, with a single-stage baseline included for direct comparison.',
-      'Simulations cover transient timing, frequency sweeps, and flip-flop setup, hold, and clock-to-Q characterization — the full loop from schematic hierarchy through process-aware SPICE to an operating point at roughly 1.67 GHz.',
+      'This project is a transistor-level design and simulation of a 2-bit ripple-carry adder with two pipeline stages, built in LTspice on a TSMC 0.18 µm CMOS process at 1.8 V. All primary inputs are registered. Stage 1 generates S0 and carry C1, intermediate signals are synchronized through pipeline flip-flops, and Stage 2 generates S1 and carry C2 before the final output registers.',
+      'The datapath uses custom sum and AOI-based carry logic, inverters, and a custom master-slave D flip-flop (ff_custom) characterized at a 15 fF load: clock-to-Q of 143.4 ps, setup of 80 ps, and hold of −60 ps. Device sizing followed the register-to-register constraint Tclk ≥ tcq + tlogic + tsetup, targeting a balanced split of about 0.34 ns in Stage 1 and 0.377 ns in Stage 2.',
+      'The smallest cleanly passing clock period in LTspice was 0.6 ns, for a measured fmax of about 1.67 GHz, two-cycle latency, and 1.67 Gresults/s throughput. Transient waveforms confirm one cycle through Stage 1 and one more through Stage 2; a 0.5 ns clock was treated as failing because of degraded output swing.',
     ],
     techStack: [
       'LTspice',
       'TSMC 0.18 µm CMOS',
       'Custom CMOS Logic',
-      'D Flip-Flops',
+      'Master-Slave D Flip-Flop',
       'Transient Simulation',
       'Setup/Hold Characterization',
     ],
     photoWalkthroughIntro:
-      'Schematic captures and simulation results from the LTspice design.',
+      'Schematics and LTspice results from the design report: flip-flop characterization, the 2-stage adder, and the timing and frequency sweeps that set fmax at 1.67 GHz.',
     photoSections: [
       {
         title: 'Top-Level Pipelined Adder Schematic',
-        caption: 'Hierarchical 2-stage pipelined adder with custom sum, carry, and flip-flop blocks.',
-        image: 'images/pipelined-adder-ltspice/pipelined-adder-schematic.png',
+        caption:
+          'Hierarchical two-stage sequential adder bench. Five input flip-flops register A1, A0, B1, B0, and C0; Stage 1 computes S0 and C1, Stage 2 computes S1 and C2, and registered pass-throughs keep Stage 2 inputs time-aligned. Outputs drive 100 fF loads.',
+        image: 'images/pipelined-adder-ltspice/pipelined-adder-schematic.jpg',
       },
       {
         title: 'Custom D Flip-Flop (ff_custom)',
-        caption: 'Pipeline register cell used between combinational stages.',
+        caption:
+          'Master-slave D flip-flop used as every pipeline register. Transmission-gate latches with local clock inversion, characterized in TSMC 0.18 µm with a 15 fF load on Q.',
         image: 'images/pipelined-adder-ltspice/ff-custom-schematic.png',
       },
       {
+        title: 'Clock-to-Q Measurement',
+        caption:
+          'ff_custom_tcq_tb.asc: D, CLK, and Q over 6 ns. Conservative tcq of 143.4 ps taken from the rising-edge clock-to-Q delay.',
+        image: 'images/pipelined-adder-ltspice/ff-tcq.jpg',
+      },
+      {
+        title: 'Setup-Time Sweep',
+        caption:
+          'ff_custom_setup_sweep.asc: data-edge sweep relative to the clock. Setup time is the smallest passing offset under a 10% tcq-degradation rule — 80 ps.',
+        image: 'images/pipelined-adder-ltspice/ff-setup-sweep.jpg',
+      },
+      {
+        title: 'Hold-Time Sweep',
+        caption:
+          'ff_custom_hold_sweep.asc: negative hold sweep. −60 ps still passes and −70 ps fails, so thold is reported as −60 ps.',
+        image: 'images/pipelined-adder-ltspice/ff-hold-sweep.jpg',
+      },
+      {
         title: 'Transient Timing Simulation',
-        caption: 'Waveforms from pipelined_adder_timing.asc verifying pipeline behavior.',
-        image: 'images/pipelined-adder-ltspice/timing-simulation.png',
+        caption:
+          'Registered-output latency check. B0r changes after the first active clock edge; C1 and S01 appear one stage later; S1 and C2 appear one more cycle later. Total pipeline latency is 2 clock cycles.',
+        image: 'images/pipelined-adder-ltspice/timing-simulation.jpg',
       },
       {
         title: 'Frequency Sweep Results',
-        caption: 'Operating-point exploration from pipelined_adder_freq_sweep.asc (~1.67 GHz).',
-        image: 'images/pipelined-adder-ltspice/frequency-sweep.png',
+        caption:
+          'Clock period decreased until outputs stopped behaving correctly. Smallest cleanly passing period is 0.6 ns (1.67 GHz, 1.67 Gresults/s). The 0.5 ns case showed degraded output swing and was treated as failing.',
+        image: 'images/pipelined-adder-ltspice/frequency-sweep.jpg',
       },
     ],
     links: [
