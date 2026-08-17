@@ -23,12 +23,23 @@ export interface ProjectLink {
   url: string
 }
 
+export interface WatchItem {
+  id: string
+  name: string
+  shortDescription: string
+  overview: string[]
+  image?: string
+  photos: [PhotoSection, PhotoSection]
+  videoUrl?: string
+  videoTitle?: string
+}
+
 export interface Project {
   slug: string
   name: string
   shortDescription: string
   image: string
-  githubUrl: string
+  githubUrl?: string
   overview: string[]
   techStack: string[]
   photoWalkthroughIntro?: string
@@ -36,5 +47,6 @@ export interface Project {
   videoWalkthroughIntro?: string
   videoSections?: VideoSection[]
   bonusVideo?: BonusVideo
+  watches?: WatchItem[]
   links: ProjectLink[]
 }

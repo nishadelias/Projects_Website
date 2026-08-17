@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import PhotoGallery from '../components/PhotoGallery'
 import VideoEmbed from '../components/VideoEmbed'
+import WatchCollection from '../components/WatchCollection'
 import { getProjectBySlug } from '../data/projects'
 
 export default function ProjectDetail() {
@@ -10,6 +11,10 @@ export default function ProjectDetail() {
   if (!project) {
     return <Navigate to="/" replace />
   }
+
+  const hasWatches = Boolean(project.watches && project.watches.length > 0)
+  const hasTechStack = project.techStack.length > 0
+  const hasLinks = project.links.length > 0
 
   return (
     <article className="container page project-detail">
@@ -21,14 +26,16 @@ export default function ProjectDetail() {
         <div className="project-hero__content">
           <h1>{project.name}</h1>
           <p className="project-hero__description">{project.shortDescription}</p>
-          <a
-            href={project.githubUrl}
-            className="button button--primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on GitHub
-          </a>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              className="button button--primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </a>
+          )}
         </div>
         <div className="project-hero__image-wrap">
           <img
@@ -46,18 +53,22 @@ export default function ProjectDetail() {
         ))}
       </section>
 
-      <section className="project-section">
-        <h2>Tech Stack</h2>
-        <ul className="tag-list">
-          {project.techStack.map((tag) => (
-            <li key={tag} className="tag">
-              {tag}
-            </li>
-          ))}
-        </ul>
-      </section>
+      {hasTechStack && (
+        <section className="project-section">
+          <h2>Tech Stack</h2>
+          <ul className="tag-list">
+            {project.techStack.map((tag) => (
+              <li key={tag} className="tag">
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
-      {project.photoSections && project.photoSections.length > 0 && (
+      {hasWatches && project.watches && <WatchCollection watches={project.watches} />}
+
+      {!hasWatches && project.photoSections && project.photoSections.length > 0 && (
         <section className="project-section">
           <h2>Photos</h2>
           {project.photoWalkthroughIntro && (
@@ -67,7 +78,7 @@ export default function ProjectDetail() {
         </section>
       )}
 
-      {project.videoSections && project.videoSections.length > 0 && (
+      {!hasWatches && project.videoSections && project.videoSections.length > 0 && (
         <section className="project-section">
           <h2>Video Walkthrough</h2>
           <p className="section-intro">
@@ -90,7 +101,7 @@ export default function ProjectDetail() {
         </section>
       )}
 
-      {project.bonusVideo && (
+      {!hasWatches && project.bonusVideo && (
         <section className="project-section project-section--bonus">
           <h2>Bonus Clip</h2>
           <div className="video-section">
@@ -101,18 +112,20 @@ export default function ProjectDetail() {
         </section>
       )}
 
-      <section className="project-section">
-        <h2>Related Links</h2>
-        <ul className="link-list">
-          {project.links.map((link) => (
-            <li key={link.url}>
-              <a href={link.url} target="_blank" rel="noopener noreferrer">
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {hasLinks && (
+        <section className="project-section">
+          <h2>Related Links</h2>
+          <ul className="link-list">
+            {project.links.map((link) => (
+              <li key={link.url}>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </article>
   )
 }

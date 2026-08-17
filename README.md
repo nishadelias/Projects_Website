@@ -30,9 +30,19 @@ The Vite `base` path and React Router `basename` are both set to `/Projects_Webs
 
 ## Adding Projects
 
-Edit `src/data/projects.ts` to add new entries. Each project needs a slug, short description, image, and optional video sections.
+Edit `src/data/projects.ts` to add new entries. Each project needs a slug, short description, image, and optional video/photo sections.
 
 To embed a YouTube video later, set `videoUrl` on a video section (e.g. `https://www.youtube.com/watch?v=...`).
+
+## Watches Collection
+
+The `watches` project uses a gallery layout. Edit the `watches` array in `src/data/projects.ts` to rename watches, update one-line and long descriptions, and set media paths:
+
+- Gallery image: `images/watches/watch-N/thumbnail.jpg`
+- Detail photos: `images/watches/watch-N/photo-1.jpg` and `photo-2.jpg`
+- Video: set `videoUrl` on each watch item
+
+Missing images and videos show placeholders until files/URLs are added under `public/images/watches/`.
 
 ## Adding Videos
 

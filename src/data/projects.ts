@@ -193,6 +193,88 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: 'watches',
+    name: 'Custom Watches',
+    shortDescription:
+      'A collection of watches I have built — each with photos and videos.',
+    image: 'images/watches/skeleton/skeleton1-1.png',
+    overview: [
+      'These are watches I have built by hand. The gallery below shows each piece at a glance; click any watch to jump to its longer description, demo video, and photo pair.',
+    ],
+    techStack: [],
+    watches: [
+      {
+        id: 'watch-1',
+        name: 'Brunette Skeleton',
+        shortDescription: '38.5mm Mosel - Brunette Skeleton vintage dress watch with Miyota 8N24 movement',
+        overview: [
+          'This is the first watch I ever built and it is sill my favorite to this day. I got the watch kit from DIY Watch Club, and would highly recommend building your first watch with one of their kits before trying to design your own. \
+          The case is made out of SS316L Stainless Steel and has a 38.5mm case size, 20mm lug size, 45.5mm lug-to-lug, and a thickness of ~12.5mm including crystal. \
+          Although this may seem thick, excluding the crystal, the watch is around 7.5mm thick, giving it a nice slim look on the wrist. \
+          The crystal is a Sapphire High-domed K1 crystal with Anti-Reflective coating. The movement is a Miyota 8N24 movement.',
+        ],
+        image: 'images/watches/skeleton/skeleton1-1.png',
+        photos: [
+          {
+            title: 'Front',
+            image: 'images/watches/skeleton/skeleton1-1.png',
+          },
+          {
+            title: 'Back',
+            image: 'images/watches/skeleton/skeleton1-2.png',
+          },
+        ],
+        videoTitle: 'Watch 1 — Build / Demo Video',
+      },
+      {
+        id: 'watch-2',
+        name: 'Silver Dress',
+        shortDescription: '38.5mm Mosel with Date - Silver Vintage Dress Watch with Miyota 8215 movement',
+        overview: [
+          'The brown leather strap and silver sunray dial give this watch a really classy look. The watch is extremely similar to the Brunette Skeleton, but a second hand and a date window at the 3 o\'clock position. \
+          The second hand was particulary difficult to install, as the hand is very thin and I didn\'t have a second hand installation tool. \
+          The case is made out of SS316L Stainless Steel and has a 38.5mm case size, 20mm lug size, 45.5mm lug-to-lug, and a thickness of ~12.5mm including crystal. \
+          Although this may seem thick, excluding the crystal, the watch is around 7.5mm thick, giving it a nice slim look on the wrist. \
+          The crystal is a Sapphire High-domed K1 crystal with Anti-Reflective coating. The movement is a Miyota 8215 movement.',
+        ],
+        image: 'images/watches/dress1/dress1-1.png',
+        photos: [
+          {
+            title: 'Front',
+            image: 'images/watches/dress1/dress1-1.png',
+          },
+          {
+            title: 'Back',
+            image: 'images/watches/dress1/dress1-2.png',
+          },
+        ],
+        videoTitle: 'Watch 2 — Build / Demo Video',
+      },
+      {
+        id: 'watch-3',
+        name: 'Black x Rose Gold Dress',
+        shortDescription: '35mm Mosel - Black x Rose Gold Vintage Dress Watch with Miyota 82S0 movement',
+        overview: [
+          'With a case size of 35.5mm, this dress watch is a nice size for both men and women. It features an SS316L Stainless Steel case(PVD Black), Sapphire High-domed K1 crystal with Anti-Reflective coating. The lug size is 18mm, and Lug-to-lug is 42mm. \
+          Similar to the other dress watches I\'ve built, this watch wears a lot slimmer on wrist than its true thickness of 12.5mm, as the case thickness is only 7.5mm excluding the crystal.',
+        ],
+        image: 'images/watches/dress2/dress2-1.png',
+        photos: [
+          {
+            title: 'Front',
+            image: 'images/watches/dress2/dress2-1.png',
+          },
+          {
+            title: 'Back',
+            image: 'images/watches//dress2/dress2-2.png',
+          },
+        ],
+        videoTitle: 'Watch 3 — Build / Demo Video',
+      },
+    ],
+    links: [],
+  },
 ]
 
 export function getProjectBySlug(slug: string): Project | undefined {
