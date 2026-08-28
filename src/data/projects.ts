@@ -6,7 +6,7 @@ export const projects: Project[] = [
     name: 'RISC-V CPU Simulator',
     shortDescription:
       'A cycle-accurate RV32 teaching simulator with a Qt6 GUI. Visualize pipeline execution, cache behavior, and branch prediction in real time.',
-    image: 'images/cpu-sim/thumbnail.svg',
+    image: 'images/cpu-sim/thumbnail.png',
     githubUrl: 'https://github.com/nishadelias/CPU_SIM',
     overview: [
       'This is a cycle-accurate RISC-V CPU simulator built for computer architecture education. Unlike a disassembler or a trace dump, you can watch instructions move through a five-stage pipeline — fetch, decode, execute, memory, writeback — cycle by cycle. You can also swap cache organizations and branch predictors and immediately see the impact on hit rate, prediction accuracy, and CPI.',
