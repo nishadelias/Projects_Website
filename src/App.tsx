@@ -5,7 +5,7 @@ import ProjectDetail from './pages/ProjectDetail'
 
 export default function App() {
   return (
-    <BrowserRouter basename="/Projects_Website">
+    <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

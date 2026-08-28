@@ -6,7 +6,7 @@ export default function Layout() {
       <header className="site-header">
         <div className="container site-header__inner">
           <Link to="/" className="site-header__logo">
-            Projects
+            Nishad&apos;s Projects
           </Link>
         </div>
       </header>
@@ -15,7 +15,7 @@ export default function Layout() {
       </main>
       <footer className="site-footer">
         <div className="container">
-          <p>Projects I&apos;ve built</p>
+          <p>Nishad&apos;s Projects</p>
         </div>
       </footer>
     </div>

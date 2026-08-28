@@ -1,6 +1,6 @@
-# Projects Website
+# Nishad's Projects
 
-A portfolio site showcasing software projects I've built, with detailed project pages and video walkthrough sections.
+Nishad's Projects — a portfolio site showcasing hardware and software work, with detailed project pages and video walkthroughs.
 
 ## Development
 
@@ -18,15 +18,15 @@ npm run build
 npm run preview
 ```
 
-## Deploy to GitHub Pages
+## Deploy to Vercel
 
-This site is configured for GitHub Pages at `https://<username>.github.io/Projects_Website/`.
+This is a static Vite + React app. On [Vercel](https://vercel.com), import the GitHub repo and keep the defaults:
 
-1. Run `npm run build`
-2. Deploy the `dist/` folder to the `gh-pages` branch (or configure GitHub Actions to do this on push)
-3. In the repo settings, set GitHub Pages source to the `gh-pages` branch
+- Framework preset: Vite
+- Build command: `npm run build`
+- Output directory: `dist`
 
-The Vite `base` path and React Router `basename` are both set to `/Projects_Website/`. A `404.html` redirect is included for client-side routing on GitHub Pages.
+Name the Vercel project `nishads-projects` (this matches `package.json`). Client-side routes are handled by `vercel.json`.
 
 ## Adding Projects
 
