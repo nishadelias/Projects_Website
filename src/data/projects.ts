@@ -20,6 +20,40 @@ export const projects: Project[] = [
       'RV32IMCF',
       'GitHub Actions CI',
     ],
+    photoWalkthroughIntro:
+      'Screenshots from the Qt6 GUI. The Statistics tab is especially useful for seeing how different branch prediction algorithms and cache schemes affect performance — swap a dropdown, rerun, and watch CPI, hit rate, and predictor accuracy change.',
+    photoSections: [
+      {
+        title: 'Pipeline Execution Trace',
+        caption:
+          'Cycle-by-cycle view of the five-stage pipeline. Instructions advance through IF/ID, ID/EX, EX/MEM, and MEM/WB; stalls and flushes are highlighted so students can see hazards and control transfers as they happen.',
+        image: 'images/cpu-sim/pipeline_execution_trace.png',
+      },
+      {
+        title: 'Instruction Dependencies',
+        caption:
+          'RAW hazards between producers and consumers while both can still occupy the pipeline. Makes data dependencies concrete before talking about forwarding and load-use stalls.',
+        image: 'images/cpu-sim/instruction_dependencies.png',
+      },
+      {
+        title: 'Register File',
+        caption:
+          'Live RISC-V register state (x0–x31) with architectural names. Recently written registers are highlighted so you can follow results as instructions retire.',
+        image: 'images/cpu-sim/register_file.png',
+      },
+      {
+        title: 'Memory Access History',
+        caption:
+          'Every load and store with address, value, and cache hit/miss. Ties a specific miss back to the instruction and address that caused it.',
+        image: 'images/cpu-sim/memory_access_history.png',
+      },
+      {
+        title: 'Statistics',
+        caption:
+          'This is where configuration choices show up as numbers. Compare branch predictors (Always Not Taken, GShare, Tournament, and more) and cache schemes (direct-mapped, set-associative, fully associative) side by side: CPI, cache hit rate, pipeline utilization, and branch predictor accuracy update after each run so the performance impact is obvious.',
+        image: 'images/cpu-sim/statistics.png',
+      },
+    ],
     videoWalkthroughIntro:
       'A four-part demo series covering the simulator from overview to hands-on labs. Videos will be added here as they are published.',
     videoSections: [
