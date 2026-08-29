@@ -282,6 +282,7 @@ export const projects: Project[] = [
           },
         ],
         videoTitle: 'Watch 1 — Build / Demo Video',
+        videoUrl: 'https://youtu.be/FuE2I05YEb8',
       },
       {
         id: 'watch-2',
@@ -289,7 +290,7 @@ export const projects: Project[] = [
         shortDescription: '38.5mm Mosel with Date - Silver Vintage Dress Watch with Miyota 8215 movement',
         overview: [
           'The brown leather strap and silver sunray dial give this watch a really classy look. The watch is extremely similar to the Brunette Skeleton, but a second hand and a date window at the 3 o\'clock position. \
-          The second hand was particulary difficult to install, as the hand is very thin and I didn\'t have a second hand installation tool. \
+          The second hand was particularly difficult to install, as the hand is very thin and I didn\'t have a second hand installation tool. \
           The case is made out of SS316L Stainless Steel and has a 38.5mm case size, 20mm lug size, 45.5mm lug-to-lug, and a thickness of ~12.5mm including crystal. \
           Although this may seem thick, excluding the crystal, the watch is around 7.5mm thick, giving it a nice slim look on the wrist. \
           The crystal is a Sapphire High-domed K1 crystal with Anti-Reflective coating. The movement is a Miyota 8215 movement.',
@@ -306,6 +307,7 @@ export const projects: Project[] = [
           },
         ],
         videoTitle: 'Watch 2 — Build / Demo Video',
+        videoUrl: 'https://youtu.be/6VT-Q0NCPUo',
       },
       {
         id: 'watch-3',
