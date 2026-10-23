@@ -3,21 +3,22 @@ import type { Project } from '../types/project'
 export const projects: Project[] = [
   {
     slug: 'cpu-sim',
-    name: 'RISC-V CPU Simulator',
+    name: 'RISC-V & ARM CPU Simulator',
     shortDescription:
-      'A cycle-accurate RV32 teaching simulator with a Qt6 GUI. Visualize pipeline execution in real time, and test your own branch prediction algorithms and cache schemes.',
+      'A cycle-accurate teaching simulator for RV32 and AArch32, sharing one five-stage pipeline and a Qt6 GUI. Visualize execution in real time, and test your own branch predictors and cache schemes on either ISA.',
     image: 'images/cpu-sim/thumbnail.png',
     githubUrl: 'https://github.com/nishadelias/CPU_SIM',
     overview: [
-      'This is a cycle-accurate RISC-V CPU simulator built for computer architecture education. Unlike a disassembler or a trace dump, you can watch instructions move through a five-stage pipeline — fetch, decode, execute, memory, writeback — cycle by cycle. You can also swap cache organizations and branch predictors and immediately see the impact on hit rate, prediction accuracy, and CPI.',
-      'The simulator models a 32-bit RISC-V pipeline with hazard detection, forwarding, branch prediction, and a unified cache in front of 64 kilobytes of RAM. It is a teaching tool — not a replacement for QEMU or Spike — but that is the point: everything is visible and measurable.',
-      'Three things make this useful in a classroom: visualization (you see stalls and flushes), experimentation (swap cache or predictor and rerun), and implementation (students extend the simulator with their own algorithms using step-by-step guides for custom cache schemes and branch predictors).',
+      'This is a cycle-accurate CPU simulator built for computer architecture education. It runs two ISAs — 32-bit RISC-V (RV32IMCF) and educational AArch32 (ARMv7-A, A32 encodings) — in the same five-stage pipeline. Unlike a disassembler or a trace dump, you can watch instructions move through fetch, decode, execute, memory, and writeback cycle by cycle. You can also swap cache organizations and branch predictors and immediately see the impact on hit rate, prediction accuracy, and CPI.',
+      'Both ISAs share the pipeline shell, hazard detection, forwarding, branch predictors, and a unified cache in front of 64 kilobytes of RAM. Load an ELF and the simulator selects the ISA from the ELF machine type; hex teaching files whose names contain “arm” use AArch32 encodings. The register view follows the loaded ISA: x0–x31 for RISC-V, or r0–r15 plus CPSR condition flags for ARM. It is a teaching tool — not a replacement for QEMU or Spike — but that is the point: everything is visible and measurable.',
+      'Three things make this useful in a classroom: visualization (you see stalls and flushes), experimentation (swap cache or predictor and rerun the same lab on RISC-V or ARM), and implementation (students extend the simulator with their own algorithms using step-by-step guides for custom cache schemes and branch predictors). AArch32 v1 covers integer data-processing, multiply, common load/store and branch forms, SVC, and conditional execution. Thumb, NEON/VFP, and AArch64 are outside this version.',
     ],
     techStack: [
       'C++17',
       'CMake',
       'Qt6',
       'RV32IMCF',
+      'AArch32 (ARMv7-A)',
       'GitHub Actions CI',
     ],
     photoWalkthroughIntro:
@@ -26,7 +27,7 @@ export const projects: Project[] = [
       {
         title: 'Pipeline Execution Trace',
         caption:
-          'Cycle-by-cycle view of the five-stage pipeline. Instructions advance through IF/ID, ID/EX, EX/MEM, and MEM/WB; stalls and flushes are highlighted so students can see hazards and control transfers as they happen.',
+          'Cycle-by-cycle view of the shared five-stage pipeline, used for both RISC-V and AArch32. Instructions advance through IF/ID, ID/EX, EX/MEM, and MEM/WB; stalls and flushes are highlighted so students can see hazards and control transfers as they happen.',
         image: 'images/cpu-sim/pipeline_execution_trace.png',
       },
       {
@@ -38,7 +39,7 @@ export const projects: Project[] = [
       {
         title: 'Register File',
         caption:
-          'Live RISC-V register state (x0–x31) with architectural names. Recently written registers are highlighted so you can follow results as instructions retire.',
+          'Live register state for the loaded ISA. RISC-V shows x0–x31; AArch32 shows r0–r15 with CPSR N/Z/C/V flags. Recently written registers are highlighted so you can follow results as instructions retire.',
         image: 'images/cpu-sim/register_file.png',
       },
       {
@@ -55,15 +56,15 @@ export const projects: Project[] = [
       },
     ],
     videoWalkthroughIntro:
-      'A four-part demo series covering the simulator from overview to hands-on labs. Videos will be added here as they are published.',
+      'A four-part demo series covering the dual-ISA simulator from overview to hands-on labs. Primary demos use RISC-V; AArch32 mirrors the same labs. Videos will be added here as they are published.',
     videoSections: [
       {
         number: 1,
         title: 'What Is This, and Why Use It in Class?',
         suggestedTitle:
-          'RISC-V CPU Simulator for Computer Architecture Classes (Overview)',
+          'Dual-ISA CPU Simulator for Computer Architecture Classes (RISC-V + ARM Overview)',
         summary:
-          'An introduction to the simulator and its educational niche. Covers what the tool models — a five-stage pipeline with branch prediction and a unified cache — and walks through a quick start demo loading and running a program in the GUI. Explains how visualization, experimentation, and student extensibility make it useful for computer architecture courses.',
+          'An introduction to the simulator and its educational niche. Covers what the tool models — one five-stage pipeline with branch prediction and a unified cache, running RV32 or AArch32 — and walks through a quick start demo loading and running a program in the GUI, including the AArch32 register file and CPSR. Explains how visualization, experimentation, and student extensibility make it useful for computer architecture courses.',
       },
       {
         number: 2,
@@ -71,7 +72,7 @@ export const projects: Project[] = [
         suggestedTitle:
           'Watch a 5-Stage Pipeline Run Cycle-by-Cycle (Educational CPU Sim)',
         summary:
-          'A cycle-by-cycle walkthrough of the pipeline execution trace, register file, and instruction dependencies. Demonstrates data forwarding with a hand-written hex program, optional load-use stalls, and memory access history — the material that is usually hardest to teach from a textbook alone.',
+          'A cycle-by-cycle walkthrough of the pipeline execution trace, register file, and instruction dependencies. Demonstrates data forwarding with a hand-written RISC-V hex program, optional load-use stalls, and memory access history, then the same hazard on instMem-forward-arm.txt — the material that is usually hardest to teach from a textbook alone.',
       },
       {
         number: 3,
@@ -79,7 +80,7 @@ export const projects: Project[] = [
         suggestedTitle:
           'Branch Prediction Lab: From 37% to 96% Accuracy in One Dropdown',
         summary:
-          'Uses the branch-heavy count_primes program to compare Always Not Taken (~37% accuracy) against GShare (~96% accuracy). Shows how mispredictions cause pipeline flushes and CPI increases, and how a dropdown change produces dramatic performance swings. Covers the CLI benchmark workflow and the student lab for implementing custom predictors.',
+          'Uses the branch-heavy count_primes program to compare Always Not Taken (~37% accuracy) against GShare (~96% accuracy) on RISC-V, with count_primes_arm.elf as the same experiment on AArch32. Shows how mispredictions cause pipeline flushes and CPI increases, and how a dropdown change produces dramatic performance swings. Covers the CLI benchmark workflow and the student lab for implementing custom predictors.',
       },
       {
         number: 4,
@@ -87,13 +88,13 @@ export const projects: Project[] = [
         suggestedTitle:
           'Cache Experiments + How Students Build Their Own Predictors',
         summary:
-          'Compares direct-mapped, set-associative, and fully associative cache organizations on a Fibonacci program. Ties cache misses to specific addresses in the memory access history, then walks through the extensibility frameworks for implementing custom cache schemes and branch predictors. Closes with a full course narrative mapping syllabus topics to simulator features.',
+          'Compares direct-mapped, set-associative, and fully associative cache organizations on a Fibonacci program, with fib_print_arm.elf as the AArch32 twin. Ties cache misses to specific addresses in the memory access history, then walks through the extensibility frameworks for implementing custom cache schemes and branch predictors. Closes with a course narrative that maps syllabus topics onto the simulator, including a dual-ISA comparison lab.',
       },
     ],
     bonusVideo: {
       title: 'Hex Programs, No Toolchain',
       summary:
-        'A quick demo showing that you do not need a RISC-V cross-compiler to use the simulator. The instruction_memory/ folder has ready-made hex programs for forwarding, load-use hazards, and more — zero setup beyond building the simulator.',
+        'A quick demo showing that you do not need a cross-compiler to use the simulator. The instruction_memory/ folder has ready-made hex programs for forwarding, load-use hazards, and syscalls — RISC-V and AArch32 — zero setup beyond building the simulator.',
     },
     links: [
       {
@@ -242,7 +243,7 @@ export const projects: Project[] = [
         name: 'Brunette Skeleton',
         shortDescription: '38.5mm Mosel - Brunette Skeleton vintage dress watch with Miyota 8N24 movement',
         overview: [
-          'This is the first watch I ever built and it is sill my favorite to this day. I got the watch kit from DIY Watch Club, and would highly recommend building your first watch with one of their kits before trying to design your own. \
+          'This is the first watch I ever built. \
           The case is made out of SS316L Stainless Steel and has a 38.5mm case size, 20mm lug size, 45.5mm lug-to-lug, and a thickness of ~12.5mm including crystal. \
           Although this may seem thick, excluding the crystal, the watch is around 7.5mm thick, giving it a nice slim look on the wrist. \
           The crystal is a Sapphire High-domed K1 crystal with Anti-Reflective coating. The movement is a Miyota 8N24 movement.',
@@ -267,7 +268,6 @@ export const projects: Project[] = [
         shortDescription: '38.5mm Mosel with Date - Silver Vintage Dress Watch with Miyota 8215 movement',
         overview: [
           'The brown leather strap and silver sunray dial give this watch a really classy look. The watch is extremely similar to the Brunette Skeleton, but a second hand and a date window at the 3 o\'clock position. \
-          The second hand was particularly difficult to install, as the hand is very thin and I didn\'t have a second hand installation tool. \
           The case is made out of SS316L Stainless Steel and has a 38.5mm case size, 20mm lug size, 45.5mm lug-to-lug, and a thickness of ~12.5mm including crystal. \
           Although this may seem thick, excluding the crystal, the watch is around 7.5mm thick, giving it a nice slim look on the wrist. \
           The crystal is a Sapphire High-domed K1 crystal with Anti-Reflective coating. The movement is a Miyota 8215 movement.',
@@ -291,7 +291,7 @@ export const projects: Project[] = [
         name: 'Black x Rose Gold Dress',
         shortDescription: '35mm Mosel - Black x Rose Gold Vintage Dress Watch with Miyota 82S0 movement',
         overview: [
-          'With a case size of 35.5mm, this dress watch is a nice size for both men and women. It features an SS316L Stainless Steel case(PVD Black), Sapphire High-domed K1 crystal with Anti-Reflective coating. The lug size is 18mm, and Lug-to-lug is 42mm. \
+          'With a case size of 35.5mm, this dress watch is a nice size for both men and women. It features an SS316L Stainless Steel case (PVD Black), Sapphire High-domed K1 crystal with Anti-Reflective coating. The lug size is 18mm, and Lug-to-lug is 42mm. \
           Similar to the other dress watches I\'ve built, this watch wears a lot slimmer on wrist than its true thickness of 12.5mm, as the case thickness is only 7.5mm excluding the crystal.',
         ],
         image: 'images/watches/dress2/dress2-1.png',
@@ -306,6 +306,76 @@ export const projects: Project[] = [
           },
         ],
         videoTitle: 'Watch 3 — Build / Demo Video',
+        videoUrl: 'https://youtu.be/HZnviu8f584',
+      },
+      {
+        id: 'watch-4',
+        name: 'Chronograph',
+        shortDescription: '38.5mm Chronograph with silver dial and Seiko VK64 mecaquartz movement',
+        overview: [
+          'A 38.5mm SS316L chronograph with a high-domed Acrylite crystal, silver dial, and thin polished chronograph hands. \
+          It runs on a Seiko VK64 mecaquartz — a hybrid that uses quartz for timekeeping and a mechanical chronograph module for the stopwatch. \
+          Specs: 20mm lugs, 45.5mm lug-to-lug, ~12.5mm thick, 3ATM. Paired with a black leather strap.',
+        ],
+        image: 'images/watches/chrono/chrono1.png',
+        photos: [
+          {
+            title: 'Front',
+            image: 'images/watches/chrono/chrono1.png',
+          },
+          {
+            title: 'Back',
+            image: 'images/watches/chrono/chrono2.png',
+          },
+        ],
+        videoTitle: 'Watch 4 — Build / Demo Video',
+        videoUrl: 'https://youtu.be/4ZLkRN1ZpDk',
+      },
+      {
+        id: 'watch-5',
+        name: 'Coke Diver',
+        shortDescription: '40mm diver with black dial, red/black bezel, and NH35 movement',
+        overview: [
+          'A 40mm vintage-style diver with a black dial, black FKM rubber strap, and red/black unidirectional 60-click bezel. \
+          The case uses a high-domed Acrylite crystal and an exhibition case back; silver diver hands and the dial are C3 Superlume. \
+          Specs: 20mm lugs, 47.5mm lug-to-lug, 13.3mm thick, 10ATM. Powered by a TMI NH35 automatic movement.',
+        ],
+        image: 'images/watches/dive1/dive1-1.png',
+        photos: [
+          {
+            title: 'Front',
+            image: 'images/watches/dive1/dive1-1.png',
+          },
+          {
+            title: 'Back',
+            image: 'images/watches/dive1/dive1-2.png',
+          },
+        ],
+        videoTitle: 'Watch 5 — Build / Demo Video',
+        videoUrl: 'https://youtu.be/iqkV42_nQk8',
+      },
+      {
+        id: 'watch-6',
+        name: 'Panda Diver Date',
+        shortDescription: '40mm diver with date window, white dial, black bezel, and NH35 movement',
+        overview: [
+          'Same 40mm vintage diver case as the Coke, but with a date window at the 3 o\'clock position. \
+          High-domed Acrylite crystal, exhibition case back, and C3 Superlume on the dial and silver diver hands. \
+          Specs: 20mm lugs, 47.5mm lug-to-lug, 13.3mm thick, 10ATM. Powered by a TMI NH35 automatic movement.',
+        ],
+        image: 'images/watches/dive2/dive2-1.png',
+        photos: [
+          {
+            title: 'Front',
+            image: 'images/watches/dive2/dive2-1.png',
+          },
+          {
+            title: 'Back',
+            image: 'images/watches/dive2/dive2-2.png',
+          },
+        ],
+        videoTitle: 'Watch 6 — Build / Demo Video',
+        videoUrl: 'https://youtu.be/zxEnmz36EIw',
       },
     ],
     links: [],
